@@ -9,9 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public InputManager inputManager;
     public Rigidbody rb;
 
-    public float speed = 10;
-    public float runSpeed = 15;
-    public float jumpForce = 200;
+    [SerializeField] private float speed = 10;
+    [SerializeField] float runSpeed = 15;
+    [SerializeField]public float jumpForce = 200;
 
     private bool isGrounded;
 
