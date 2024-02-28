@@ -222,6 +222,34 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerInteract"",
+            ""id"": ""dfa4f412-b3f4-487d-8e79-2fb199d21e65"",
+            ""actions"": [
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""da9fac6d-6229-42f9-9c03-fb7083c15131"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8f41035f-b505-44b2-9d31-f0b4551482ec"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -237,6 +265,9 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_MouseX = m_Camera.FindAction("MouseX", throwIfNotFound: true);
         m_Camera_MouseY = m_Camera.FindAction("MouseY", throwIfNotFound: true);
+        // PlayerInteract
+        m_PlayerInteract = asset.FindActionMap("PlayerInteract", throwIfNotFound: true);
+        m_PlayerInteract_Shoot = m_PlayerInteract.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -426,6 +457,52 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
         }
     }
     public CameraActions @Camera => new CameraActions(this);
+
+    // PlayerInteract
+    private readonly InputActionMap m_PlayerInteract;
+    private List<IPlayerInteractActions> m_PlayerInteractActionsCallbackInterfaces = new List<IPlayerInteractActions>();
+    private readonly InputAction m_PlayerInteract_Shoot;
+    public struct PlayerInteractActions
+    {
+        private @Player_Mappings m_Wrapper;
+        public PlayerInteractActions(@Player_Mappings wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Shoot => m_Wrapper.m_PlayerInteract_Shoot;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerInteract; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerInteractActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerInteractActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerInteractActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerInteractActionsCallbackInterfaces.Add(instance);
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+        }
+
+        private void UnregisterCallbacks(IPlayerInteractActions instance)
+        {
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+        }
+
+        public void RemoveCallbacks(IPlayerInteractActions instance)
+        {
+            if (m_Wrapper.m_PlayerInteractActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayerInteractActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerInteractActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerInteractActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayerInteractActions @PlayerInteract => new PlayerInteractActions(this);
     public interface IMovementActions
     {
         void OnForward(InputAction.CallbackContext context);
@@ -438,5 +515,9 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
     {
         void OnMouseX(InputAction.CallbackContext context);
         void OnMouseY(InputAction.CallbackContext context);
+    }
+    public interface IPlayerInteractActions
+    {
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        player_Mappings= new Player_Mappings();
+        player_Mappings = new Player_Mappings();
 
     }
 

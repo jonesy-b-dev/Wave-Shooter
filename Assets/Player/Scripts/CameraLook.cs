@@ -21,10 +21,8 @@ public class CameraLook : MonoBehaviour
     void Update()
     {
         float mouseX = inputManager.player_Mappings.Camera.MouseX.ReadValue<float>() * mouseSensitivity * Time.deltaTime;
-        Debug.Log("Mouse x: " + mouseX);
 
         float mouseY = inputManager.player_Mappings.Camera.MouseY.ReadValue<float>() * mouseSensitivity * Time.deltaTime;
-        Debug.Log("Mouse y: " + mouseY);
         xRotation -= mouseY;
         xRotation = Math.Clamp(xRotation, -90f, 90f);
 

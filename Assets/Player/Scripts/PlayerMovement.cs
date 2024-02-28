@@ -6,18 +6,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public InputManager inputManager;
-    public Rigidbody rb;
+    [Header("Components")]
+    [SerializeField] private InputManager inputManager;
+    [SerializeField] private Rigidbody rb;
 
+    [Header("Player Settings")]
     [SerializeField] private float speed = 10;
     [SerializeField] private float runSpeed = 15;
     [SerializeField] private float jumpForce = 200;
 
+//private:
     private bool isGrounded;
 
     private void Start()
     {
-        // Call jump function when jump button is pressed
+        // Call jump function when jump button is pressed (lambda)
         inputManager.player_Mappings.Movement.Jump.started += _ => Jump();
     }
 
