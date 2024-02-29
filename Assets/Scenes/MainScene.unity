@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fa97bd23b0ff74caea383266c3e1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyStats: {fileID: 11400000, guid: 5b3c548c6afc69c4dae9c7637f40ef3f, type: 2}
 --- !u!65 &468962813
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -388,8 +389,8 @@ Transform:
   m_GameObject: {fileID: 468962811}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4628754, y: 0.54, z: 6.423885}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.4628754, y: 2.29, z: 6.423885}
+  m_LocalScale: {x: 1, y: 2.4667, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -599,7 +600,7 @@ Transform:
   m_GameObject: {fileID: 1326035185}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.9477415, y: 1.19, z: 6.7583537}
+  m_LocalPosition: {x: 11.9477415, y: 1.52, z: 6.7583537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -683,9 +684,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 2.03
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.15}
 --- !u!114 &1326035192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,6 +700,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1326035189}
+  raycastDistance: 100
+  cameraTransform: {fileID: 431295356}
 --- !u!1 &1499933218
 GameObject:
   m_ObjectHideFlags: 0
