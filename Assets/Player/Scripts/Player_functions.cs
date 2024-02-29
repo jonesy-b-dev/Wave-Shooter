@@ -7,24 +7,39 @@ public class Player_functions : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private float raycastDistance = 100f; // Distance for the raycast
+    [SerializeField] private Transform cameraTransform; // Reference to the camera's transform
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Schoot();
+        inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
     }
 
-    private void Schoot()
+    private void Shoot()
     {
-        Debug.Log("Shooting");
-        //int layerMask = 1 << 8;
-        //
-        //RaycastHit hit;
-        //
-        //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
-        //{
-        //    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-        //    Debug.Log("Did Hit");
-        //}
+        // Get the position and direction of the raycast
+        Vector3 raycastOrigin = transform.position; // Assuming the ray starts from the player's position
+        Vector3 raycastDirection = cameraTransform.forward; // Get the forward direction from the camera
+
+        // Perform the raycast
+        RaycastHit hit;
+        if (Physics.Raycast(raycastOrigin, raycastDirection, out hit, raycastDistance))
+        {
+            IInteractable testInterface = hit.collider.gameObject.GetComponent<IInteractable>();
+
+            if (testInterface != null)
+            {
+                testInterface.Interact();
+            }
+
+            // If the ray hits something, visualize the ray and the hit point
+            Debug.DrawLine(raycastOrigin, hit.point, Color.red, 0.1f);
+        }
+        else
+        {
+            // If the ray doesn't hit anything, visualize the ray to the maximum distance
+            Vector3 endPosition = raycastOrigin + raycastDirection * raycastDistance;
+            Debug.DrawLine(raycastOrigin, endPosition, Color.green, 0.1f);
+        }
     }
 }
