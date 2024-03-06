@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour, IEnemy
     void IEnemy.Death()
     {
         Debug.Log("Dead");
-
-        renderer.enabled = false;
+     
+        Destroy(gameObject);
     }
 }
