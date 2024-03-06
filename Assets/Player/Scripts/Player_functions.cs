@@ -48,6 +48,7 @@ public class Player_functions : MonoBehaviour
 
     private void TakeDamage(float damageAmount)
     {
-
+        GameManager.instance.playerHealth -= damageAmount; 
+        Debug.Log(GameManager.instance.playerHealth);
     }
 }
