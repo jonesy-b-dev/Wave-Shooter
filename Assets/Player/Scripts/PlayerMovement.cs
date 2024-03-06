@@ -11,11 +11,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody rb;
 
     [Header("Player Settings")]
-    [SerializeField] private float speed = 10;
-    [SerializeField] private float runSpeed = 15;
-    [SerializeField] private float jumpForce = 200;
+    [SerializeField] private float speed = 10f;
+    [SerializeField] private float runSpeed = 15f;
+    [SerializeField] private float jumpForce = 200f;
+    [SerializeField] private float airSpeed = 0.3f;
 
 //private:
+    private Vector3 move;
+    private float forward;
+    private float right;
+    private bool isColliding;
     private bool isGrounded;
 
     private void Start()
@@ -27,13 +32,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Read for the input
-        float forward = inputManager.player_Mappings.Movement.Forward.ReadValue<float>(); 
-        float right = inputManager.player_Mappings.Movement.Right.ReadValue<float>(); 
+        if (isGrounded || isColliding)
+        {
+            // Read for the input
+            forward = inputManager.player_Mappings.Movement.Forward.ReadValue<float>(); 
+            right = inputManager.player_Mappings.Movement.Right.ReadValue<float>(); 
+        }
         
-        // Setup the move vector
-        Vector3 move = transform.right * right + transform.forward * forward;
-        
+        move = transform.right * right + transform.forward * forward;
         // Sprinting 
         move *= inputManager.player_Mappings.Movement.Run.ReadValue<float>() == 0 ? speed : runSpeed;
         
@@ -47,15 +53,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        isColliding = true;
+
+        forward = inputManager.player_Mappings.Movement.Forward.ReadValue<float>();
+        right = inputManager.player_Mappings.Movement.Right.ReadValue<float>();
+
         // Check if player is colliding with the ground tag
-        if(other.transform.CompareTag("Ground"))
+        if (other.transform.CompareTag("Ground"))
         {
+            //speed *= airSpeed;
             isGrounded = true;
         }
     }
 
     private void OnCollisionExit(Collision other)
     {
+        isColliding = false;
+
         if (other.transform.CompareTag("Ground"))
         {
             isGrounded = false;

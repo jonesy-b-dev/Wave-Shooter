@@ -8,13 +8,11 @@ public class Enemy : MonoBehaviour, IEnemy
 
     [SerializeField] private SOEnemy enemyStats;
 
-    private new Renderer renderer;
     private float health;
 
     void Start()
     {
         health = enemyStats.health;
-        renderer = GetComponent<Renderer>();
     }
 
     void IEnemy.Hit()
