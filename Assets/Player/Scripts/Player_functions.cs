@@ -7,7 +7,7 @@ public class Player_functions : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private float raycastDistance = 1000f; // Distance for the raycast
+    [SerializeField] private float raycastDistance = 10000f; // Distance for the raycast
     [SerializeField] private Transform cameraTransform;     // Reference to the camera's transform
 
     void Start()
@@ -37,5 +37,17 @@ public class Player_functions : MonoBehaviour
             Vector3 endPosition = raycastOrigin + raycastDirection * raycastDistance;
             Debug.DrawLine(raycastOrigin, endPosition, Color.green, 0.1f);
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Bullet"))
+        {
+            TakeDamage(5f);
+        }
+    }
+
+    private void TakeDamage(float damageAmount)
+    {
+
     }
 }

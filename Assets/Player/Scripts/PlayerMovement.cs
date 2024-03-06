@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+//serialized:
     [Header("Components")]
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Rigidbody rb;
@@ -14,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private float runSpeed = 15f;
     [SerializeField] private float jumpForce = 200f;
-    [SerializeField] private float airSpeed = 0.3f;
 
 //private:
     private Vector3 move;
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             forward = inputManager.player_Mappings.Movement.Forward.ReadValue<float>(); 
             right = inputManager.player_Mappings.Movement.Right.ReadValue<float>(); 
         }
-        
+
         move = transform.right * right + transform.forward * forward;
         // Sprinting 
         move *= inputManager.player_Mappings.Movement.Run.ReadValue<float>() == 0 ? speed : runSpeed;
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision collision)
     {
         isColliding = true;
 
@@ -59,18 +59,18 @@ public class PlayerMovement : MonoBehaviour
         right = inputManager.player_Mappings.Movement.Right.ReadValue<float>();
 
         // Check if player is colliding with the ground tag
-        if (other.transform.CompareTag("Ground"))
+        if (collision.transform.CompareTag("Ground"))
         {
             //speed *= airSpeed;
             isGrounded = true;
         }
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionExit(Collision collision)
     {
         isColliding = false;
 
-        if (other.transform.CompareTag("Ground"))
+        if (collision.transform.CompareTag("Ground"))
         {
             isGrounded = false;
         }
