@@ -250,6 +250,34 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Respawn"",
+            ""id"": ""27d5e34c-b1ed-4e26-b701-c31fd090298e"",
+            ""actions"": [
+                {
+                    ""name"": ""Respawn"",
+                    ""type"": ""Button"",
+                    ""id"": ""5c97b138-5924-4147-b2df-b43119948383"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9d3ca207-ecb2-4776-9639-446fcd657d13"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Respawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -268,6 +296,9 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
         // PlayerInteract
         m_PlayerInteract = asset.FindActionMap("PlayerInteract", throwIfNotFound: true);
         m_PlayerInteract_Shoot = m_PlayerInteract.FindAction("Shoot", throwIfNotFound: true);
+        // Respawn
+        m_Respawn = asset.FindActionMap("Respawn", throwIfNotFound: true);
+        m_Respawn_Respawn = m_Respawn.FindAction("Respawn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -503,6 +534,52 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
         }
     }
     public PlayerInteractActions @PlayerInteract => new PlayerInteractActions(this);
+
+    // Respawn
+    private readonly InputActionMap m_Respawn;
+    private List<IRespawnActions> m_RespawnActionsCallbackInterfaces = new List<IRespawnActions>();
+    private readonly InputAction m_Respawn_Respawn;
+    public struct RespawnActions
+    {
+        private @Player_Mappings m_Wrapper;
+        public RespawnActions(@Player_Mappings wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Respawn => m_Wrapper.m_Respawn_Respawn;
+        public InputActionMap Get() { return m_Wrapper.m_Respawn; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(RespawnActions set) { return set.Get(); }
+        public void AddCallbacks(IRespawnActions instance)
+        {
+            if (instance == null || m_Wrapper.m_RespawnActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_RespawnActionsCallbackInterfaces.Add(instance);
+            @Respawn.started += instance.OnRespawn;
+            @Respawn.performed += instance.OnRespawn;
+            @Respawn.canceled += instance.OnRespawn;
+        }
+
+        private void UnregisterCallbacks(IRespawnActions instance)
+        {
+            @Respawn.started -= instance.OnRespawn;
+            @Respawn.performed -= instance.OnRespawn;
+            @Respawn.canceled -= instance.OnRespawn;
+        }
+
+        public void RemoveCallbacks(IRespawnActions instance)
+        {
+            if (m_Wrapper.m_RespawnActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IRespawnActions instance)
+        {
+            foreach (var item in m_Wrapper.m_RespawnActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_RespawnActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public RespawnActions @Respawn => new RespawnActions(this);
     public interface IMovementActions
     {
         void OnForward(InputAction.CallbackContext context);
@@ -519,5 +596,9 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
     public interface IPlayerInteractActions
     {
         void OnShoot(InputAction.CallbackContext context);
+    }
+    public interface IRespawnActions
+    {
+        void OnRespawn(InputAction.CallbackContext context);
     }
 }

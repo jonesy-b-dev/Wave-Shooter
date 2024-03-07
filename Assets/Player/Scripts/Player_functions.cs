@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_functions : MonoBehaviour
 {
@@ -12,8 +14,11 @@ public class Player_functions : MonoBehaviour
 
     void Start()
     {
+        // Link input to function
         inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
     }
+
+    
 
     private void Shoot()
     {
