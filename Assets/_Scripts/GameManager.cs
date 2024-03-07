@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
 // Public:
     public static GameManager instance;
     public float playerHealth = 100;
+    public int enemiesLeft;
 
     private int currentWave;
 
@@ -22,9 +24,20 @@ public class GameManager : MonoBehaviour
        else instance = this;
     }
 
+    public void EnemyDeath()
+    {
+        enemiesLeft -= 1;
+        Debug.Log(enemiesLeft);
+
+        if (enemiesLeft == 0)
+        {
+            SceneManager.LoadScene("Win Screen");
+        }
+    }
     private void Start()
     {
         currentWave = 0;
+        enemiesLeft = waveEnemyCount[currentWave];
         for (int i = 0; i < waveEnemyCount[currentWave]; i++)
         {
             Instantiate(enemy);

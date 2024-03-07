@@ -23,13 +23,14 @@ public class Enemy : MonoBehaviour, IEnemy
         {
             ((IEnemy)this).Death();
         }
-        Debug.Log("Enemy Hit"); 
     }
 
     void IEnemy.Death()
     {
         Debug.Log("Dead");
-     
+
+        GameManager.instance.EnemyDeath();
+        
         Destroy(gameObject);
     }
 }
