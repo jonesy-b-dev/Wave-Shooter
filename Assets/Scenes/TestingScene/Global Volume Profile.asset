@@ -43,7 +43,7 @@ MonoBehaviour:
     m_Value: 1.46
   contrast:
     m_OverrideState: 1
-    m_Value: -35.3
+    m_Value: -21.1
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -52,7 +52,7 @@ MonoBehaviour:
     m_Value: 35
   saturation:
     m_OverrideState: 1
-    m_Value: -31.8
+    m_Value: -36.3
 --- !u!114 &-4333126295321487739
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -74,10 +74,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.353
+    m_Value: 0.324
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.894
+    m_Value: 1
   rounded:
     m_OverrideState: 0
     m_Value: 0
@@ -93,10 +93,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2
   neutralHDRRangeReductionMode:
     m_OverrideState: 0
     m_Value: 2
@@ -157,7 +157,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.524
+    m_Value: 0.175
 --- !u!114 &3783078645837161708
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -179,10 +179,10 @@ MonoBehaviour:
     m_Value: 0.9
   intensity:
     m_OverrideState: 1
-    m_Value: 2.31
+    m_Value: 3.63
   scatter:
     m_OverrideState: 1
-    m_Value: 0.507
+    m_Value: 0.293
   clamp:
     m_OverrideState: 0
     m_Value: 65472
@@ -220,7 +220,7 @@ MonoBehaviour:
   active: 1
   redOutRedIn:
     m_OverrideState: 1
-    m_Value: 99
+    m_Value: 95
   redOutGreenIn:
     m_OverrideState: 0
     m_Value: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
     m_Value: 0
   greenOutGreenIn:
     m_OverrideState: 1
-    m_Value: 70
+    m_Value: 68
   greenOutBlueIn:
     m_OverrideState: 0
     m_Value: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
     m_Value: 0
   blueOutBlueIn:
     m_OverrideState: 1
-    m_Value: 24
+    m_Value: 17
 --- !u!114 &6555075974233601846
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e1dc532bcb41949b58bc4f2abfbb7e, type: 3}
   m_Name: LensDistortion
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0.088
