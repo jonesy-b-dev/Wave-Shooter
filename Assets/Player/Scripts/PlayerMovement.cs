@@ -15,13 +15,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private float runSpeed = 15f;
     [SerializeField] private float jumpForce = 200f;
+    [SerializeField] private Transform groundCheckTransform;
+    [SerializeField] private float groundCheckDistance = 0.1f;
 
 //private:
     private Vector3 move;
     private float forward;
     private float right;
     private bool isColliding;
-    private bool isGrounded;
+    [SerializeField] private bool isGrounded;
 
     private void Start()
     {
@@ -32,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckGrounded();
         if (isGrounded || isColliding)
         {
             // Read for the input
@@ -50,6 +53,17 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(move.x, rb.velocity.y, move.z);
     }
 
+    private void CheckGrounded()
+    {
+        if (Physics.Raycast(groundCheckTransform.position, Vector3.down, groundCheckDistance))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

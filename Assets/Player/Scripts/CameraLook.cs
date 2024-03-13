@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraLook : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private float mouseSensitivity = 25f;
+    [SerializeField] private float mouseSensitivity = 8f;
     [SerializeField] private Transform body;
 
     private float xRotation = 0;
