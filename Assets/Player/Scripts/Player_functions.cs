@@ -1,16 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player_functions : MonoBehaviour
 {
+// Serialisable
     [Header("Components")]
     [SerializeField] private InputManager inputManager;
     [SerializeField] private float raycastDistance = 10000f; // Distance for the raycast
     [SerializeField] private Transform cameraTransform;     // Reference to the camera's transform
+    [SerializeField] private ParticleSystem[] fireEffect;
+    [SerializeField] private Transform barrelTransform;
 
     void Start()
     {
@@ -18,10 +22,12 @@ public class Player_functions : MonoBehaviour
         inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
     }
 
-    
-
     private void Shoot()
     {
+        int randomFireEffect = UnityEngine.Random.Range(0, fireEffect.Length);
+        Debug.Log(randomFireEffect);
+        fireEffect[randomFireEffect].transform.position = barrelTransform.position;
+        fireEffect[randomFireEffect].Play();
         // Get the position and direction of the raycast
         Vector3 raycastOrigin = transform.position; 
         Vector3 raycastDirection = cameraTransform.forward; // Get the forward direction from the camera

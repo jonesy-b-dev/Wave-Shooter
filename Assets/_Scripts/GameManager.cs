@@ -12,7 +12,11 @@ public class GameManager : MonoBehaviour
 
 // Public:
     public static GameManager instance;
+    public GameObject pauseMenu;
     public float playerHealth = 100;
+    public bool hasDied = false;
+    public bool isPaused = false;
+    public bool hasWon = false;
     public int enemiesLeft;
 
     private int currentWave;
