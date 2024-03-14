@@ -15,7 +15,8 @@ enum Menus
 public class MenuManager : MonoBehaviour
 {
     private static MenuManager instance;
-    private GameObject mainMenu;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject creditsMenu;
     private GameObject pauseMenu;
     private Menus menus;
     
@@ -36,16 +37,52 @@ public class MenuManager : MonoBehaviour
         if(currentScene.name == "Main Menu")
         {
             menus = Menus.mainMenu;
-            mainMenu = GameObject.Find("Main Menu");
         }
         else
         {
             menus = Menus.pauseMenu;
-            pauseMenu = GameObject.Find("Pause Menu");
         }
     }
 
     private void Update()
     {
+    }
+
+    public void OnStartClick()
+    {
+        SceneManager.LoadScene("GameScene1");
+    }
+
+    public void OnPauseClick()
+    {
+
+    }
+    public void OnResumeClick()
+    {
+
+    }
+    public void OnCreditsClick()
+    {
+        creditsMenu.SetActive(true);
+        mainMenu.SetActive(false);
+    }
+    
+    public void OnBackClick(string whatBack)
+    {
+        switch (whatBack)
+        {
+            case "credits":
+                creditsMenu.SetActive(false);
+                mainMenu.SetActive(true);
+            break;
+        }
+    }
+    public void OnOptionsClick()
+    {
+
+    }
+    public void OnExitClick()
+    {
+        Application.Quit();
     }
 }
