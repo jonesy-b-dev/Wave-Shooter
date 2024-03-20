@@ -27,6 +27,7 @@ public class Player_functions : MonoBehaviour
         int randomFireEffect = UnityEngine.Random.Range(0, fireEffect.Length);
         Debug.Log(randomFireEffect);
         fireEffect[randomFireEffect].transform.position = barrelTransform.position;
+        Instantiate(fireEffect[randomFireEffect]);
         fireEffect[randomFireEffect].Play();
         // Get the position and direction of the raycast
         Vector3 raycastOrigin = transform.position; 
