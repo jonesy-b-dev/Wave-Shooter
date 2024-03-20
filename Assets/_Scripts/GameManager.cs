@@ -51,9 +51,12 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log(waveEnemyCount.Length);
         currentWave = 0;
-        SpawnEnemies();
+        
+        if(SceneManager.GetActiveScene().name != "Main Menu")
+        {
+            SpawnEnemies();
+        }
     }
 
     private void SpawnEnemies()

@@ -14,7 +14,7 @@ public class Respawn : MonoBehaviour
 
     private void Respawner()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("Main Menu");
 
     }
     // Update is called once per frame
