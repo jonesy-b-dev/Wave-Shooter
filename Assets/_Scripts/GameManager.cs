@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
 // Private
     private int currentWave;
 
-
     private void Awake()
     {
        if (instance != null && instance != this) Destroy(this);
@@ -39,11 +38,20 @@ public class GameManager : MonoBehaviour
 
         if (enemiesLeft == 0)
         {
-            SceneManager.LoadScene("Win Screen");
+            currentWave++;
+            if(currentWave == waveEnemyCount.Length - 1)
+            {
+                SceneManager.LoadScene("Win Screen");
+            }
+            else
+            {
+                SpawnEnemies();
+            }
         }
     }
     private void Start()
     {
+        Debug.Log(waveEnemyCount.Length);
         currentWave = 0;
         SpawnEnemies();
     }
