@@ -436,6 +436,8 @@ MonoBehaviour:
   isPaused: 0
   hasWon: 0
   enemiesLeft: 0
+  minXZBounds: {x: -10, y: 10}
+  yCoordinate: 0
 --- !u!4 &569276027
 Transform:
   m_ObjectHideFlags: 0
@@ -445,7 +447,7 @@ Transform:
   m_GameObject: {fileID: 569276025}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.71747, y: 0.8370199, z: 6.043812}
+  m_LocalPosition: {x: 11.71747, y: 1.18, z: 6.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -18,10 +18,13 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public bool hasWon = false;
     public int enemiesLeft;
+    public Vector2 xzEnemySpawnBounds = new Vector2(-10f, 10f);
+    public float yCoordinate = 0f;
 
+// Private
     private int currentWave;
 
-    
+
     private void Awake()
     {
        if (instance != null && instance != this) Destroy(this);
@@ -41,10 +44,22 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentWave = 0;
+        SpawnEnemies();
+    }
+
+    private void SpawnEnemies()
+    {
         enemiesLeft = waveEnemyCount[currentWave];
         for (int i = 0; i < waveEnemyCount[currentWave]; i++)
         {
-            Instantiate(enemy);
+            // Generate random x and z coordinates within bounds
+            float randomX = Random.Range(xzEnemySpawnBounds.x, xzEnemySpawnBounds.y);
+            float randomZ = Random.Range(xzEnemySpawnBounds.x, xzEnemySpawnBounds.y);
+
+            // Create a new position using the random coordinates and fixed y-coordinate
+            Vector3 randomPosition = new Vector3(randomX, yCoordinate, randomZ);
+
+            Instantiate(enemy, randomPosition, Quaternion.identity);
         }
     }
 }
