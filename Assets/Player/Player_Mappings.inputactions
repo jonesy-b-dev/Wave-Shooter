@@ -262,7 +262,7 @@
             "id": "3e55a921-b114-40d8-8fc4-8fd2d632aca4",
             "actions": [
                 {
-                    "name": "Pauze",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "e880c7de-9485-47a4-b16d-fd90c94669a5",
                     "expectedControlType": "Button",
@@ -279,7 +279,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pauze",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -290,7 +290,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pauze",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

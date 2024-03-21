@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public class Player_functions : MonoBehaviour
     [Header("Components")]
     [SerializeField] private InputManager inputManager;
     [SerializeField] private MenuManager menuManager;
+    [SerializeField] private GameObject damageVignette;
     [SerializeField] private float raycastDistance = 10000f; // Distance for the raycast
     [SerializeField] private Transform cameraTransform;     // Reference to the camera's transform
     [SerializeField] private ParticleSystem[] fireEffect;
@@ -20,9 +22,14 @@ public class Player_functions : MonoBehaviour
     {
         // Link input to function
         inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
-        inputManager.player_Mappings.UI.Pauze.started += _ => menuManager.ShowPauseScreen();
+        inputManager.player_Mappings.UI.Pause.started += _ => menuManager.ShowPauseScreen();
     }
 
+    void Update()
+    {
+        RectTransform rectTransform = damageVignette.gameObject.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
+    }
     private void Shoot()
     {
         if(!GameManager.instance.isPaused)
