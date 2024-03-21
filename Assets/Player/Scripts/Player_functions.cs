@@ -25,31 +25,34 @@ public class Player_functions : MonoBehaviour
 
     private void Shoot()
     {
-        int randomFireEffect = UnityEngine.Random.Range(0, fireEffect.Length);
-        Debug.Log(randomFireEffect);
-        fireEffect[randomFireEffect].transform.position = barrelTransform.position;
-        Instantiate(fireEffect[randomFireEffect]);
-        fireEffect[randomFireEffect].Play();
-
-        // Get the position and direction of the raycast
-        Vector3 raycastOrigin = cameraTransform.position; 
-        Vector3 raycastDirection = cameraTransform.forward; // Get the forward direction from the camera
-
-        if (Physics.Raycast(raycastOrigin, raycastDirection, out RaycastHit hit, raycastDistance))
+        if(!GameManager.instance.isPaused)
         {
-            IEnemy enemyInterface = hit.collider.gameObject.GetComponent<IEnemy>();
+            int randomFireEffect = UnityEngine.Random.Range(0, fireEffect.Length);
+            Debug.Log(randomFireEffect);
+            fireEffect[randomFireEffect].transform.position = barrelTransform.position;
+            Instantiate(fireEffect[randomFireEffect]);
+            fireEffect[randomFireEffect].Play();
 
-            // Check if interface is NULL
-            enemyInterface?.Hit();
+            // Get the position and direction of the raycast
+            Vector3 raycastOrigin = cameraTransform.position; 
+            Vector3 raycastDirection = cameraTransform.forward; // Get the forward direction from the camera
 
-            // If the ray hits something, show the ray and the hit point
-            Debug.DrawLine(raycastOrigin, hit.point, Color.red, 0.1f);
-        }
-        else
-        {
-            // If the ray doesn't hit anything, show the ray
-            Vector3 endPosition = raycastOrigin + raycastDirection * raycastDistance;
-            Debug.DrawLine(raycastOrigin, endPosition, Color.green, 0.1f);
+            if (Physics.Raycast(raycastOrigin, raycastDirection, out RaycastHit hit, raycastDistance))
+            {
+                IEnemy enemyInterface = hit.collider.gameObject.GetComponent<IEnemy>();
+
+                // Check if interface is NULL
+                enemyInterface?.Hit();
+
+                // If the ray hits something, show the ray and the hit point
+                Debug.DrawLine(raycastOrigin, hit.point, Color.red, 0.1f);
+            }
+            else
+            {
+                // If the ray doesn't hit anything, show the ray
+                Vector3 endPosition = raycastOrigin + raycastDirection * raycastDistance;
+                Debug.DrawLine(raycastOrigin, endPosition, Color.green, 0.1f);
+            }
         }
     }
     private void OnCollisionEnter(Collision collision)
