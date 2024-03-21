@@ -38,12 +38,12 @@ public class MenuManager : MonoBehaviour
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
+            postProcessing.profile.TryGet(out colorAdjustments);
         }
 
         pauseSat = new ClampedFloatParameter(pauseSaturation, -100f, 100f);
         normalSat = new ClampedFloatParameter(normalSaturation, -100f, 100f);
 
-        postProcessing.profile.TryGet(out colorAdjustments);
     }
 
     public void ShowPauseScreen()
