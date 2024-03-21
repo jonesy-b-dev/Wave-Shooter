@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using Unity.VisualScripting;
 
 enum Menus
 {
@@ -15,33 +18,29 @@ enum Menus
 public class MenuManager : MonoBehaviour
 {
     private static MenuManager instance;
+
+//Serialisable
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject creditsMenu;
     [SerializeField] private GameObject pauseMenu;
-    private Menus menus;
-    
+    [SerializeField] private Volume postProcessing;
+    private ColorAdjustments colorAdjustments;
+ 
+//Private:
+    private float pauseSaturation = -76.8f;
+    private float normalSaturation = -36.3f;
+    private ClampedFloatParameter pauseSat;
+    private ClampedFloatParameter normalSat;
+
+
     private void Awake()
     {
-       if (instance != null && instance != this) Destroy(this);
-       else instance = this;
-    }
+        if (instance != null && instance != this) Destroy(this);
+        else instance = this;
+        pauseSat = new ClampedFloatParameter(pauseSaturation, -100f, 100f);
+        normalSat = new ClampedFloatParameter(normalSaturation, -100f, 100f);
 
-    private void Start()
-    {
-        UpdateScenes();
-    }
-
-    private void UpdateScenes()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        if(currentScene.name == "Main Menu")
-        {
-            menus = Menus.mainMenu;
-        }
-        else
-        {
-            menus = Menus.pauseMenu;
-        }
+        postProcessing.profile.TryGet(out colorAdjustments);
     }
 
     public void ShowPauseScreen()
@@ -53,12 +52,18 @@ public class MenuManager : MonoBehaviour
         {
             Debug.Log("Pause activated");
             Time.timeScale = 0f;
+
+            colorAdjustments.saturation = pauseSat;
+            Debug.Log(colorAdjustments.saturation);
             pauseMenu.SetActive(true);
         }
         else
         {
             Debug.Log("Pauze deactivated");
             Time.timeScale = 1f;
+
+            colorAdjustments.saturation = normalSat;
+            Debug.Log(colorAdjustments.saturation);
             pauseMenu.SetActive(false);
         }
 
