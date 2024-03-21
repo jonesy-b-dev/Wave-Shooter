@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class EnemNavigation : MonoBehaviour
 {
 // Serializable:
-    [SerializeField] Transform playerTransform;
+    private Transform playerTransform;
+    private float distanceFromPlayer = 10;
 
 // Private:
     private NavMeshAgent agent;
@@ -22,6 +23,9 @@ public class EnemNavigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.destination = playerTransform.position;
+        Vector3 directionToPlayer = playerTransform.position - transform.position;
+        Vector3 destinationPosition = playerTransform.position - directionToPlayer.normalized * distanceFromPlayer;
+
+        agent.destination = destinationPosition;
     }
 }

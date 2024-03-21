@@ -30,6 +30,7 @@ public class Player_functions : MonoBehaviour
         fireEffect[randomFireEffect].transform.position = barrelTransform.position;
         Instantiate(fireEffect[randomFireEffect]);
         fireEffect[randomFireEffect].Play();
+
         // Get the position and direction of the raycast
         Vector3 raycastOrigin = transform.position; 
         Vector3 raycastDirection = cameraTransform.forward; // Get the forward direction from the camera
