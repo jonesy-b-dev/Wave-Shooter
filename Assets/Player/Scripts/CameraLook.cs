@@ -18,7 +18,7 @@ public class CameraLook : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         float mouseX = inputManager.player_Mappings.Camera.MouseX.ReadValue<float>() * mouseSensitivity * Time.deltaTime;
 
