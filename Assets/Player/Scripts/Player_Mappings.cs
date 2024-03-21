@@ -278,6 +278,45 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""3e55a921-b114-40d8-8fc4-8fd2d632aca4"",
+            ""actions"": [
+                {
+                    ""name"": ""Pauze"",
+                    ""type"": ""Button"",
+                    ""id"": ""e880c7de-9485-47a4-b16d-fd90c94669a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""304e90c6-ef38-40c7-be6c-cd83ddfb6e5f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pauze"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86c65b0d-2824-41b8-8abb-f2b8837ac398"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pauze"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -299,6 +338,9 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
         // Respawn
         m_Respawn = asset.FindActionMap("Respawn", throwIfNotFound: true);
         m_Respawn_Respawn = m_Respawn.FindAction("Respawn", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Pauze = m_UI.FindAction("Pauze", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -580,6 +622,52 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
         }
     }
     public RespawnActions @Respawn => new RespawnActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_Pauze;
+    public struct UIActions
+    {
+        private @Player_Mappings m_Wrapper;
+        public UIActions(@Player_Mappings wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pauze => m_Wrapper.m_UI_Pauze;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @Pauze.started += instance.OnPauze;
+            @Pauze.performed += instance.OnPauze;
+            @Pauze.canceled += instance.OnPauze;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @Pauze.started -= instance.OnPauze;
+            @Pauze.performed -= instance.OnPauze;
+            @Pauze.canceled -= instance.OnPauze;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IMovementActions
     {
         void OnForward(InputAction.CallbackContext context);
@@ -600,5 +688,9 @@ public partial class @Player_Mappings: IInputActionCollection2, IDisposable
     public interface IRespawnActions
     {
         void OnRespawn(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnPauze(InputAction.CallbackContext context);
     }
 }

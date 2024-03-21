@@ -10,6 +10,7 @@ public class Player_functions : MonoBehaviour
 // Serialisable
     [Header("Components")]
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private MenuManager menuManager;
     [SerializeField] private float raycastDistance = 10000f; // Distance for the raycast
     [SerializeField] private Transform cameraTransform;     // Reference to the camera's transform
     [SerializeField] private ParticleSystem[] fireEffect;
@@ -19,6 +20,7 @@ public class Player_functions : MonoBehaviour
     {
         // Link input to function
         inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
+        inputManager.player_Mappings.UI.Pauze.started += _ => menuManager.ShowPauseScreen();
     }
 
     private void Shoot()

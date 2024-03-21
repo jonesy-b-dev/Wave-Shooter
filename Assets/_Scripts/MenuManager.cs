@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
     private static MenuManager instance;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject creditsMenu;
-    private GameObject pauseMenu;
+    [SerializeField] private GameObject pauseMenu;
     private Menus menus;
     
     private void Awake()
@@ -44,8 +44,24 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void ShowPauseScreen()
     {
+
+        GameManager.instance.isPaused = GameManager.instance.isPaused == false ? true : false;
+
+        if (GameManager.instance.isPaused )
+        {
+            Debug.Log("Pause activated");
+            Time.timeScale = 0f;
+            pauseMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Pauze deactivated");
+            Time.timeScale = 1f;
+            pauseMenu.SetActive(false);
+        }
+
     }
 
     public void OnStartClick()
