@@ -7,19 +7,11 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Unity.VisualScripting;
 
-enum Menus
-{
-    mainMenu,
-    pauseMenu,
-    credits,
-    options
-}
-
 public class MenuManager : MonoBehaviour
 {
     private static MenuManager instance;
 
-//Serialisable
+//Serializable
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject creditsMenu;
     [SerializeField] private GameObject pauseMenu;
@@ -37,6 +29,17 @@ public class MenuManager : MonoBehaviour
     {
         if (instance != null && instance != this) Destroy(this);
         else instance = this;
+        
+        Scene currentScene = SceneManager.GetActiveScene();
+        if(currentScene.name == "Main Menu")
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         pauseSat = new ClampedFloatParameter(pauseSaturation, -100f, 100f);
         normalSat = new ClampedFloatParameter(normalSaturation, -100f, 100f);
 
@@ -59,7 +62,7 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Pauze deactivated");
+            Debug.Log("Pause deactivated");
             Time.timeScale = 1f;
 
             colorAdjustments.saturation = normalSat;
