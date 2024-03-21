@@ -59,6 +59,7 @@ public class MenuManager : MonoBehaviour
             colorAdjustments.saturation = pauseSat;
             Debug.Log(colorAdjustments.saturation);
             pauseMenu.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
@@ -68,6 +69,7 @@ public class MenuManager : MonoBehaviour
             colorAdjustments.saturation = normalSat;
             Debug.Log(colorAdjustments.saturation);
             pauseMenu.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
     }
@@ -81,10 +83,16 @@ public class MenuManager : MonoBehaviour
     {
 
     }
-    public void OnResumeClick()
+    public void OnContinueClick()
     {
-
+        ShowPauseScreen();
     }
+    
+    public void OnMainMenuClick()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
     public void OnCreditsClick()
     {
         creditsMenu.SetActive(true);
