@@ -79,10 +79,6 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("GameScene1");
     }
 
-    public void OnPauseClick()
-    {
-
-    }
     public void OnContinueClick()
     {
         ShowPauseScreen();

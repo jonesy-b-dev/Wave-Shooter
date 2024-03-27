@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,8 @@ public class GameManager : MonoBehaviour
 {
 // Serializable:
     [SerializeField] private GameObject enemy;
-    [SerializeField] private int[] waveEnemyCount; 
+    [SerializeField] private int[] waveEnemyCount;
+    [SerializeField] private TextMeshProUGUI waveCountText;
 
 // Public:
     public static GameManager instance;
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
+        StartCoroutine(ShowWaveText());
         enemiesLeft = waveEnemyCount[currentWave];
         for (int i = 0; i < waveEnemyCount[currentWave]; i++)
         {
@@ -72,5 +75,13 @@ public class GameManager : MonoBehaviour
 
             Instantiate(enemy, randomPosition, Quaternion.identity);
         }
+    }
+
+    private IEnumerator ShowWaveText()
+    {
+        Debug.Log("Change wave text");
+        waveCountText.text = "Wave " + (currentWave + 1);
+        yield return new WaitForSeconds(4);
+        waveCountText.text = " ";
     }
 }
