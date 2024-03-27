@@ -20,7 +20,7 @@ public class Player_functions : MonoBehaviour
 
     void Start()
     {
-        // Link input to function
+        // Link input to functions
         inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
         inputManager.player_Mappings.UI.Pause.started += _ => menuManager.ShowPauseScreen();
     }

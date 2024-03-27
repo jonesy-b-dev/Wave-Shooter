@@ -75,7 +75,6 @@ public class MenuManager : MonoBehaviour
             playerUI.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
         }
-
     }
 
     public void OnStartClick()
@@ -109,10 +108,7 @@ public class MenuManager : MonoBehaviour
             break;
         }
     }
-    public void OnOptionsClick()
-    {
-
-    }
+    
     public void OnExitClick()
     {
         Application.Quit();
