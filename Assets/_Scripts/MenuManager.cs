@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject creditsMenu;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Volume postProcessing;
+    [SerializeField] private GameObject playerUI;
     private ColorAdjustments colorAdjustments;
  
 //Private:
@@ -59,6 +60,8 @@ public class MenuManager : MonoBehaviour
             colorAdjustments.saturation = pauseSat;
             Debug.Log(colorAdjustments.saturation);
             pauseMenu.SetActive(true);
+            playerUI.SetActive(false);
+
             Cursor.lockState = CursorLockMode.None;
         }
         else
@@ -69,6 +72,7 @@ public class MenuManager : MonoBehaviour
             colorAdjustments.saturation = normalSat;
             Debug.Log(colorAdjustments.saturation);
             pauseMenu.SetActive(false);
+            playerUI.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
         }
 
