@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     [SerializeField] private SOEnemy enemyStats;
     [SerializeField] private GameObject shootPoint;
+    [SerializeField] private GameObject bullet;
 
     // Private
     private EnemNavigation enemNavigation;
@@ -47,6 +48,8 @@ public class Enemy : MonoBehaviour, IEnemy
 
     void IEnemy.Shoot()
     {
+        Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation);
+
         Vector3 raycastOrigin = shootPoint.transform.position;
         Vector3 directionToPlayer = (player.transform.position - raycastOrigin).normalized;
 

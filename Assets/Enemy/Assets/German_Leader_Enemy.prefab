@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 9033978986072076736}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.9999533, z: 0, w: 0.0096634645}
-  m_LocalPosition: {x: 0.003, y: 1.314, z: 0.118}
+  m_LocalPosition: {x: 0.006, y: 1.21, z: 0.256}
   m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: 5b3c548c6afc69c4dae9c7637f40ef3f, type: 2}
   shootPoint: {fileID: 9033978986072076736}
+  bullet: {fileID: 506501005156080297, guid: 38b51401f8877dd4fabc8b5cb3e55493, type: 3}
 --- !u!114 &4835473025764434605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionToPlayer: {x: 0, y: 0, z: 0}
+  playerTransform: {fileID: 0}
 --- !u!64 &3619659227154425877
 MeshCollider:
   m_ObjectHideFlags: 0
