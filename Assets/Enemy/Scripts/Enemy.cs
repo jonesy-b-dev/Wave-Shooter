@@ -12,13 +12,14 @@ public class Enemy : MonoBehaviour, IEnemy
     // Private
     private EnemNavigation enemNavigation;
 
+    private GameObject player;
     private float health;
 
     void Start()
     {
-        enemNavigation = GetComponent<EnemNavigation>();
-
         health = enemyStats.health;
+        player = GameManager.instance.player;
+        enemNavigation = GetComponent<EnemNavigation>();
     }
 
     void Update()

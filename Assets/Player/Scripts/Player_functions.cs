@@ -1,14 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player_functions : MonoBehaviour
 {
-// Serialisable
+// Serializable
     [Header("Components")]
     [SerializeField] private InputManager inputManager;
     [SerializeField] private MenuManager menuManager;
