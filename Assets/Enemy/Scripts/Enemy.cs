@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,10 +24,16 @@ public class Enemy : MonoBehaviour, IEnemy
         enemNavigation = GetComponent<EnemNavigation>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        ((IEnemy)this).Shoot();
+        int randomNumber = UnityEngine.Random.Range(0, 1000);
+
+        if(randomNumber > 990)
+        {
+            ((IEnemy)this).Shoot();
+        }
     }
+
     void IEnemy.Hit()
     {
         health = 0;
@@ -50,18 +57,16 @@ public class Enemy : MonoBehaviour, IEnemy
     {
         Instantiate(bullet, shootPoint.transform.position, shootPoint.transform.rotation);
 
-        Vector3 raycastOrigin = shootPoint.transform.position;
-        Vector3 directionToPlayer = (player.transform.position - raycastOrigin).normalized;
+        //Vector3 raycastOrigin = shootPoint.transform.position;
+        //Vector3 directionToPlayer = (player.transform.position - raycastOrigin).normalized;
 
-        Debug.Log(player.transform.position);
-
-        if(Physics.Raycast(raycastOrigin, directionToPlayer, out RaycastHit hit))
-        {
-            Debug.DrawLine(raycastOrigin, hit.point, Color.red, 0.1f);
-        }
-        else
-        {
-            Debug.DrawLine(raycastOrigin, hit.point, Color.green, 0.1f);
-        }
+        //if(Physics.Raycast(raycastOrigin, directionToPlayer, out RaycastHit hit))
+        //{
+        //    Debug.DrawLine(raycastOrigin, hit.point, Color.red, 0.1f);
+        //}
+        //else
+        //{
+        //    Debug.DrawLine(raycastOrigin, hit.point, Color.green, 0.1f);
+        //}
     }
 }
