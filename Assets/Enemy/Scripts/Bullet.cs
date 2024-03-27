@@ -12,7 +12,12 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         Vector3 directionToPlayer = GameManager.instance.player.transform.position - transform.position;
-        Debug.Log(GameManager.instance.player.transform.position);
         rb.AddForce(directionToPlayer * force, ForceMode.Impulse);       
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collision enter");
+        Destroy(gameObject);
     }
 }
