@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_functions : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Player_functions : MonoBehaviour
 
     void Start()
     {
-        // Link input to functions
+        // Link input to function
         inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
         inputManager.player_Mappings.UI.Pause.started += _ => menuManager.ShowPauseScreen();
     }
@@ -67,6 +68,10 @@ public class Player_functions : MonoBehaviour
     private void TakeDamage(float damageAmount)
     {
         GameManager.instance.playerHealth -= damageAmount; 
+        if(GameManager.instance.playerHealth >= 0)
+        {
+            SceneManager.LoadScene("DeathScene");
+        }
         Debug.Log(GameManager.instance.playerHealth);
     }
 }
