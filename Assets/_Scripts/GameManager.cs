@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private int[] waveEnemyCount;
     [SerializeField] private TextMeshProUGUI waveCountText;
+    [SerializeField] private TextMeshProUGUI healthUI;
 
 // Public:
     public static GameManager instance;
@@ -55,7 +56,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentWave = 0;
-        
+
+        UpdateHealthUI();
+    
         if(SceneManager.GetActiveScene().name != "Main Menu")
         {
             StartCoroutine(ShowWaveText());
@@ -85,7 +88,7 @@ public class GameManager : MonoBehaviour
         {
             displayedStartText = true;
             waveCountText.text = "Watch out! The germans are invading!";
-            // Already set the currentWave to 1 so we dont get stuck in this if statement
+            // Already set the currentWave to 1 so we don't get stuck in this if statement
             yield return new WaitForSeconds(5);
             SpawnEnemies();
         }
@@ -93,5 +96,10 @@ public class GameManager : MonoBehaviour
         waveCountText.text = "Wave " + (currentWave + 1);
         yield return new WaitForSeconds(4);
         waveCountText.text = " ";
+    }
+
+    public void UpdateHealthUI()
+    {
+        healthUI.text = "hp: " + playerHealth.ToString();
     }
 }
