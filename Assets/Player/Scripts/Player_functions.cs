@@ -68,9 +68,10 @@ public class Player_functions : MonoBehaviour
     private void TakeDamage(float damageAmount)
     {
         GameManager.instance.playerHealth -= damageAmount; 
-        if(GameManager.instance.playerHealth >= 0)
+        GameManager.instance.UpdateHealthUI();
+        if(GameManager.instance.playerHealth <= 0)
         {
-            SceneManager.LoadScene("DeathScene");
+            SceneManager.LoadScene("DeathScreen");
         }
         Debug.Log(GameManager.instance.playerHealth);
     }
