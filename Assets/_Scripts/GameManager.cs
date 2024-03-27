@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
 // Private
     private int currentWave;
+    private bool displayedStartText;
 
     private void Awake()
     {
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
         
         if(SceneManager.GetActiveScene().name != "Main Menu")
         {
-            SpawnEnemies();
+            StartCoroutine(ShowWaveText());
         }
     }
 
@@ -79,7 +80,15 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ShowWaveText()
     {
-        Debug.Log("Change wave text");
+        if (currentWave == 0 && !displayedStartText)
+        {
+            displayedStartText = true;
+            waveCountText.text = "Watch out! The germans are invading!";
+            // Already set the currentWave to 1 so we dont get stuck in this if statement
+            yield return new WaitForSeconds(5);
+            SpawnEnemies();
+        }
+
         waveCountText.text = "Wave " + (currentWave + 1);
         yield return new WaitForSeconds(4);
         waveCountText.text = " ";
