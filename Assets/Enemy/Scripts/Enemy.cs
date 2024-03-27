@@ -47,16 +47,18 @@ public class Enemy : MonoBehaviour, IEnemy
 
     void IEnemy.Shoot()
     {
-        Vector3 raycastOrgin = shootPoint.transform.position;
-        Debug.Log(enemNavigation.directionToPlayer);
+        Vector3 raycastOrigin = shootPoint.transform.position;
+        Vector3 directionToPlayer = (player.transform.position - raycastOrigin).normalized;
 
-        if(Physics.Raycast(raycastOrgin, transform.position - enemNavigation.playerTransform.position, out RaycastHit hit))
+        Debug.Log(player.transform.position);
+
+        if(Physics.Raycast(raycastOrigin, directionToPlayer, out RaycastHit hit))
         {
-            Debug.DrawLine(raycastOrgin, hit.point, Color.red, 0.1f);
-                    }
+            Debug.DrawLine(raycastOrigin, hit.point, Color.red, 0.1f);
+        }
         else
         {
-            Debug.DrawLine(raycastOrgin, hit.point, Color.green, 0.1f);
+            Debug.DrawLine(raycastOrigin, hit.point, Color.green, 0.1f);
         }
     }
 }
