@@ -13,8 +13,11 @@ public class Player_functions : MonoBehaviour
     [SerializeField] private ParticleSystem[] fireEffect;
     [SerializeField] private Transform barrelTransform;
 
+    private Animator animator;
+
     void Start()
     {
+        animator = GameManager.instance.player.GetComponent<Animator>();
         // Link input to function
         inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
         inputManager.player_Mappings.UI.Pause.started += _ => menuManager.ShowPauseScreen();
@@ -29,11 +32,15 @@ public class Player_functions : MonoBehaviour
     {
         if(!GameManager.instance.isPaused)
         {
+            // Play partcle effect
             int randomFireEffect = UnityEngine.Random.Range(0, fireEffect.Length);
-            Debug.Log(randomFireEffect);
+            //Debug.Log(randomFireEffect);
             fireEffect[randomFireEffect].transform.position = barrelTransform.position;
             Instantiate(fireEffect[randomFireEffect]);
             fireEffect[randomFireEffect].Play();
+
+            // Play animation
+            animator.SetTrigger("Shoot");
 
             // Get the position and direction of the raycast
             Vector3 raycastOrigin = cameraTransform.position; 
