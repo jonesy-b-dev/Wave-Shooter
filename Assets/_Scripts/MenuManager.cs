@@ -91,7 +91,12 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
     }
-
+    
+    public void OnPauseClick()
+    {
+        pauseMenu.SetActive(true);
+        mainMenu.SetActive(false);
+    }
     public void OnCreditsClick()
     {
         creditsMenu.SetActive(true);
@@ -105,7 +110,11 @@ public class MenuManager : MonoBehaviour
             case "credits":
                 creditsMenu.SetActive(false);
                 mainMenu.SetActive(true);
-            break;
+                break;
+            case "options":
+                pauseMenu.SetActive(false);
+                mainMenu.SetActive(true);
+                break;
         }
     }
     

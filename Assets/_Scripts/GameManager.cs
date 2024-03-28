@@ -55,12 +55,10 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        currentWave = 0;
-
-        UpdateHealthUI();
-    
         if(SceneManager.GetActiveScene().name != "Main Menu")
         {
+            currentWave = 0;
+            UpdateHealthUI();
             StartCoroutine(ShowWaveText());
         }
     }
