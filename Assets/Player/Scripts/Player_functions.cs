@@ -12,7 +12,6 @@ public class Player_functions : MonoBehaviour
     [SerializeField] private Transform cameraTransform;     // Reference to the camera's transform
     [SerializeField] private ParticleSystem[] fireEffect;
     [SerializeField] private Transform barrelTransform;
-
     private Animator animator;
 
     void Start()
@@ -35,8 +34,7 @@ public class Player_functions : MonoBehaviour
             // Play partcle effect
             int randomFireEffect = UnityEngine.Random.Range(0, fireEffect.Length);
             //Debug.Log(randomFireEffect);
-            fireEffect[randomFireEffect].transform.position = barrelTransform.position;
-            Instantiate(fireEffect[randomFireEffect]);
+            Instantiate(fireEffect[randomFireEffect], barrelTransform.position, barrelTransform.rotation);
             fireEffect[randomFireEffect].Play();
 
             // Play animation
