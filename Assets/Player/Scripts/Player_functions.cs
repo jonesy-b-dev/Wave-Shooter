@@ -12,6 +12,9 @@ public class Player_functions : MonoBehaviour
     [SerializeField] private Transform cameraTransform;     // Reference to the camera's transform
     [SerializeField] private ParticleSystem[] fireEffect;
     [SerializeField] private Transform barrelTransform;
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private AudioClip fireAudio;
+
     private Animator animator;
 
     void Start()
@@ -39,6 +42,9 @@ public class Player_functions : MonoBehaviour
 
             // Play animation
             animator.SetTrigger("Shoot");
+
+            //Play audio
+            audioManager.PlayAudio(fireAudio, barrelTransform.position);
 
             // Get the position and direction of the raycast
             Vector3 raycastOrigin = cameraTransform.position; 
