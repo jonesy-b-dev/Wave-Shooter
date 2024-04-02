@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +25,7 @@ public class Player_functions : MonoBehaviour
 
 //Private:
     private Animator animator;
+    private bool canShoot = true;
 
     void Start()
     {
@@ -37,9 +40,10 @@ public class Player_functions : MonoBehaviour
         RectTransform rectTransform = damageVignette.gameObject.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
     }
+
     private void Shoot()
     {
-        if(!GameManager.instance.isPaused)
+        if(!GameManager.instance.isPaused && canShoot == true)
         {
             // Play partcle effect
             int randomFireEffect = UnityEngine.Random.Range(0, fireEffect.Length);
@@ -73,7 +77,15 @@ public class Player_functions : MonoBehaviour
                 Vector3 endPosition = raycastOrigin + raycastDirection * raycastDistance;
                 Debug.DrawLine(raycastOrigin, endPosition, Color.green, 0.1f);
             }
+            canShoot = false;
+            StartCoroutine(ShootTimer());
+            canShoot = true;
         }
+    }
+    
+    private IEnumerator ShootTimer()
+    {
+        yield return new WaitForSeconds(1.5f);
     }
     private void OnCollisionEnter(Collision collision)
     {
