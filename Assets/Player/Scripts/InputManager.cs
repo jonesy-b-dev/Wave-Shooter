@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+// public:
     public Player_Mappings player_Mappings;
 
 

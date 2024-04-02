@@ -5,17 +5,14 @@ using UnityEngine.AI;
 
 public class EnemNavigation : MonoBehaviour
 {
-// Public
+// public:
     public Vector3 directionToPlayer; 
-
-// Serializable:
     public Transform playerTransform;
-    private float distanceFromPlayer = 10;
 
 // Private:
     private NavMeshAgent agent;
+    private float distanceFromPlayer = 10;
 
-    // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -23,7 +20,6 @@ public class EnemNavigation : MonoBehaviour
         playerTransform = player.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         directionToPlayer = playerTransform.position - transform.position;

@@ -5,15 +5,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IEnemy
 {
-    // Start is called before the first frame update
-
+// Serialisable:
     [SerializeField] private SOEnemy enemyStats;
     [SerializeField] private GameObject shootPoint;
     [SerializeField] private GameObject bullet;
 
-    // Private
+// Private
     private EnemNavigation enemNavigation;
-
     private GameObject player;
     private float health;
 

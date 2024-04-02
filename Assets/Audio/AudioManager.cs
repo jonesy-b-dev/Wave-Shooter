@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+// public:
     public static AudioManager instance;
 
+// Serialazable:
     [SerializeField] Transform audioPoolParent;
     [SerializeField] Transform activeAudioPoolParent;
     [SerializeField] GameObject audioObject;
-
-
     [SerializeField] int poolSize;
 
-    // Start is called before the first frame update
-    List<GameObject> audioPool = new List<GameObject>();
-    List<GameObject> activeAudioPool = new List<GameObject>();
+// private:
+    private List<GameObject> audioPool = new List<GameObject>();
+    private List<GameObject> activeAudioPool = new List<GameObject>();
 
     private void Awake()
     {

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+// Serialisable
     [SerializeField] private Rigidbody rb;
+
+// public:
     public int force = 1000;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Vector3 directionToPlayer = GameManager.instance.player.transform.position - transform.position;

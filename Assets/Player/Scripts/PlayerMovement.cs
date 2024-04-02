@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-//serialized:
+//Serializable:
     [Header("Components")]
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Transform groundCheckTransform;
 
     [Header("Player Settings")]
     [SerializeField] private float speed = 10f;
     [SerializeField] private float runSpeed = 15f;
     [SerializeField] private float jumpForce = 200f;
-    [SerializeField] private Transform groundCheckTransform;
     [SerializeField] private float groundCheckDistance = 0.1f;
 
 //private:
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private float forward;
     private float right;
     private bool isColliding;
-    [SerializeField] private bool isGrounded;
+    private bool isGrounded;
 
     private void Start()
     {

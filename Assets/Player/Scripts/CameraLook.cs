@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
+// Serialisable
     [SerializeField] private InputManager inputManager;
     [SerializeField] private float mouseSensitivity = 8f;
     [SerializeField] private Transform body;
 
+// private:
     private float xRotation = 0;
 
     // Update is called once per frame

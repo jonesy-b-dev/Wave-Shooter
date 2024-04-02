@@ -12,18 +12,22 @@ public class MenuManager : MonoBehaviour
     private static MenuManager instance;
 
 //Serializable
+    [Header("UI Elements")]
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject creditsMenu;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private Volume postProcessing;
     [SerializeField] private GameObject playerUI;
-    private ColorAdjustments colorAdjustments;
+
+    [Space(5)]
+    [Header("Other")]
+    [SerializeField] private Volume postProcessing;
  
 //Private:
     private float pauseSaturation = -76.8f;
     private float normalSaturation = -36.3f;
     private ClampedFloatParameter pauseSat;
     private ClampedFloatParameter normalSat;
+    private ColorAdjustments colorAdjustments;
 
 
     private void Awake()

@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
 {
+// Serialisable
     [SerializeField] private InputManager inputManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,11 +17,5 @@ public class Respawn : MonoBehaviour
     private void Respawner()
     {
         SceneManager.LoadScene("Main Menu");
-
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

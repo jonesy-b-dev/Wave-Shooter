@@ -4,17 +4,24 @@ using UnityEngine.SceneManagement;
 public class Player_functions : MonoBehaviour
 {
 // Serializable
-    [Header("Components")]
+    [Header("Managers")]
     [SerializeField] private InputManager inputManager;
     [SerializeField] private MenuManager menuManager;
+    [SerializeField] private AudioManager audioManager;
+    
+    [Space(5)]
+    [Header("Objects")]
     [SerializeField] private GameObject damageVignette;
-    [SerializeField] private float raycastDistance = 10000f; // Distance for the raycast
     [SerializeField] private Transform cameraTransform;     // Reference to the camera's transform
     [SerializeField] private ParticleSystem[] fireEffect;
     [SerializeField] private Transform barrelTransform;
-    [SerializeField] private AudioManager audioManager;
     [SerializeField] private AudioClip fireAudio;
 
+    [Space(5)]
+    [Header("Settings")]
+    [SerializeField] private float raycastDistance = 10000f; // Distance for the raycast
+
+//Private:
     private Animator animator;
 
     void Start()
