@@ -13,6 +13,10 @@ public class CameraLook : MonoBehaviour
 // private:
     private float xRotation = 0;
 
+    public void Start()
+    {
+        mouseSensitivity = OptionsHandler.instance.sensitivityMultiplier;
+    }
     // Update is called once per frame
     void LateUpdate()
     {
