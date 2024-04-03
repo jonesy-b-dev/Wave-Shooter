@@ -54,7 +54,6 @@ public class MenuManager : MonoBehaviour
 
     public void ShowPauseScreen()
     {
-
         GameManager.instance.isPaused = GameManager.instance.isPaused == false ? true : false;
 
         if (GameManager.instance.isPaused )
@@ -116,6 +115,11 @@ public class MenuManager : MonoBehaviour
                 settingsMenu.SetActive(true);
                 break;
         }
+    }
+
+    public void LoadSettingsUI(SettingsUI settingsUI)
+    {
+        settingsUI.sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
     }
 
     public void OnCreditsClick()
