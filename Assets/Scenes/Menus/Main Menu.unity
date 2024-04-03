@@ -24177,8 +24177,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 165412947}
   creditsMenu: {fileID: 425207341}
-  pauseMenu: {fileID: 1745869347}
+  pauseMenu: {fileID: 0}
   playerUI: {fileID: 0}
+  settingsMenu: {fileID: 1745869347}
   postProcessing: {fileID: 0}
 --- !u!1001 &635514206
 PrefabInstance:
@@ -40933,14 +40934,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 635387895}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: OnPauseClick
-        m_Mode: 1
+        m_MethodName: OnOptionsClick
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: mainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1001 &1080562541
@@ -73505,7 +73506,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: options
+          m_StringArgument: mainOptions
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2018859180

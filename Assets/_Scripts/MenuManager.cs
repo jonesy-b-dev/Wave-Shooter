@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject creditsMenu;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject playerUI;
+    [SerializeField] private GameObject settingsMenu;
 
     [Space(5)]
     [Header("Other")]
@@ -101,6 +102,22 @@ public class MenuManager : MonoBehaviour
         pauseMenu.SetActive(true);
         mainMenu.SetActive(false);
     }
+
+    public void OnOptionsClick(string whatOptions)
+    {
+        switch (whatOptions)
+        {
+            case "mainMenu":
+                mainMenu.SetActive(false);
+                settingsMenu.SetActive(true);
+                break;
+            case "pauseMenu":
+                pauseMenu.SetActive(false);
+                settingsMenu.SetActive(true);
+                break;
+        }
+    }
+
     public void OnCreditsClick()
     {
         creditsMenu.SetActive(true);
@@ -115,9 +132,13 @@ public class MenuManager : MonoBehaviour
                 creditsMenu.SetActive(false);
                 mainMenu.SetActive(true);
                 break;
-            case "options":
-                pauseMenu.SetActive(false);
+            case "mainOptions":
+                settingsMenu.SetActive(false);
                 mainMenu.SetActive(true);
+                break;
+            case "pauseOptions":
+                settingsMenu.SetActive(false);
+                pauseMenu.SetActive(true);
                 break;
         }
     }
