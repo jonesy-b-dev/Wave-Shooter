@@ -57239,7 +57239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1177858348ba457488780bda5dd3c476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivityMultiplier: 0
 --- !u!4 &1533746445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 477806, guid: 848847ad5d2e9e94b9dd1ed6dead47f2,
@@ -64602,7 +64601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1745869348}
   m_Layer: 5
-  m_Name: PauseMenu_UI
+  m_Name: Options_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
