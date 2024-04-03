@@ -19,15 +19,14 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-          if(instance != null && instance != this)
-          {
-              Destroy(this);
-          }
-          else
-          {
-             instance = this;
-          }
-
+        if(instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+           instance = this;
+        }
     }
     void Start()
     {
@@ -35,7 +34,9 @@ public class AudioManager : MonoBehaviour
 
         for (int i = 0; i < poolSize; i++)
         {
-            audioPool.Add(Instantiate(audioObject, transform.parent = audioPoolParent));    
+            GameObject go = Instantiate(audioObject);
+            audioPool.Add(go);
+            go.transform.parent = audioPoolParent;
         }
     }
 
