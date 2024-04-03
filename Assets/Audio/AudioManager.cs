@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class AudioManager : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] int poolSize;
 
 // private:
-    private List<GameObject> audioPool = new List<GameObject>();
-    private List<GameObject> activeAudioPool = new List<GameObject>();
+    public List<GameObject> audioPool = new();
+    public List<GameObject> activeAudioPool = new();
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class AudioManager : MonoBehaviour
 
         for (int i = 0; i < poolSize; i++)
         {
+
             GameObject go = Instantiate(audioObject);
             audioPool.Add(go);
             go.transform.parent = audioPoolParent;
@@ -49,36 +51,31 @@ public class AudioManager : MonoBehaviour
             AudioSource source = audioPool[0].GetComponent<AudioSource>();
             source.PlayOneShot(clip);
             activeAudioPool.Add(audioPool[0]);
-            audioPool.RemoveAt(0);
 
             // Wait for end of clip
-            StartCoroutine(WaitForEndOfAudio(source));
-            Debug.Log("End of clip");
+            Debug.Log(clip.length);
+
+            StartCoroutine(WaitForEndOfAudio(clip, activeAudioPool[activeAudioPool.Count - 1]));
+            audioPool.Remove(audioPool[0]);
         }
         else
         {
             Debug.Log("No Audio pool slot avalible");
         }
-
-         
+    }
+    private void GiveBackAudioPool(GameObject audioGameObject)
+    {
+        Debug.Log("called");
+        audioGameObject.transform.position = Vector3.zero;
+        audioGameObject.transform.parent = audioPoolParent;
+        activeAudioPool.Remove(audioGameObject);
+        audioPool.Add(audioGameObject);
     }
 
-    private bool IsReversePitch(AudioSource source)
+    private IEnumerator WaitForEndOfAudio(AudioClip clip, GameObject audioGameObject)
     {
-        return source.pitch < 0f;
-    }
-
-    private float GetClipRemainingTime(AudioSource source)
-    {
-        // Calculate how much time there is remaining for the audiosource
-        // just source.clip.length doesnt work properly if we have diffrent pitches since it will shorten or lengthen
-        float remainingTime = (source.clip.length - source.time) / source.pitch;
-        return IsReversePitch(source) ? (source.clip.length + remainingTime) : remainingTime;
-    }
-
-    private IEnumerator WaitForEndOfAudio(AudioSource source)
-    {
-        var watForClipRemainingTime = new WaitForSeconds(GetClipRemainingTime(source));
-        yield return watForClipRemainingTime;
+        //yield return new WaitUntil(() => !audioGameObject.GetComponent<AudioSource>().isPlaying);
+        yield return new WaitForSeconds(1);
+        GiveBackAudioPool(audioGameObject);
     }
 }

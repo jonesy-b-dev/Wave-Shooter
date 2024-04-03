@@ -58,11 +58,11 @@ public class MenuManager : MonoBehaviour
 
         if (GameManager.instance.isPaused )
         {
-            Debug.Log("Pause activated");
+           // Debug.Log("Pause activated");
             Time.timeScale = 0f;
 
             colorAdjustments.saturation = pauseSat;
-            Debug.Log(colorAdjustments.saturation);
+           // Debug.Log(colorAdjustments.saturation);
             pauseMenu.SetActive(true);
             playerUI.SetActive(false);
 
@@ -70,11 +70,11 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Pause deactivated");
+           // Debug.Log("Pause deactivated");
             Time.timeScale = 1f;
 
             colorAdjustments.saturation = normalSat;
-            Debug.Log(colorAdjustments.saturation);
+           // Debug.Log(colorAdjustments.saturation);
             pauseMenu.SetActive(false);
             playerUI.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;

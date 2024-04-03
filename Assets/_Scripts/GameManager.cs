@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public bool hasWon = false;
     public int enemiesLeft;
-    public Vector2 minEnemySpawnBounds = new Vector2(-10f, 10f);
-    public Vector2 maxEnemySpawnBounds = new Vector2(10f, -10f);
+    public Vector2 minEnemySpawnBounds = new(-10f, 10f);
+    public Vector2 maxEnemySpawnBounds = new(10f, -10f);
     public float yCoordinate = 0f;
 
 // Private
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
             float randomZ = Random.Range(minEnemySpawnBounds.y, maxEnemySpawnBounds.y);
 
             // Create a new position using the random coordinates and fixed y-coordinate
-            Vector3 randomPosition = new Vector3(randomX, yCoordinate, randomZ);
+            Vector3 randomPosition = new(randomX, yCoordinate, randomZ);
 
             Instantiate(enemy, randomPosition, Quaternion.identity);
         }
