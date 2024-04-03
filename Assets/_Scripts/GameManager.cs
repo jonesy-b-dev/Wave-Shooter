@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     public void EnemyDeath()
     {
         enemiesLeft -= 1;
-        Debug.Log(enemiesLeft);
+        //Debug.Log(enemiesLeft);
 
         if (enemiesLeft == 0)
         {

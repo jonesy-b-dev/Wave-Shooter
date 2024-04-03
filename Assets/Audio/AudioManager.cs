@@ -53,7 +53,7 @@ public class AudioManager : MonoBehaviour
             activeAudioPool.Add(audioPool[0]);
 
             // Wait for end of clip
-            Debug.Log(clip.length);
+            //Debug.Log(clip.length);
 
             StartCoroutine(WaitForEndOfAudio(clip, activeAudioPool[activeAudioPool.Count - 1]));
             audioPool.Remove(audioPool[0]);
@@ -75,7 +75,7 @@ public class AudioManager : MonoBehaviour
     private IEnumerator WaitForEndOfAudio(AudioClip clip, GameObject audioGameObject)
     {
         //yield return new WaitUntil(() => !audioGameObject.GetComponent<AudioSource>().isPlaying);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(clip.length);
         GiveBackAudioPool(audioGameObject);
     }
 }
