@@ -13,17 +13,12 @@ public class CameraLook : MonoBehaviour
 // private:
     private float xRotation = 0;
 
-    public void Start()
-    {
-        mouseSensitivity = PlayerPrefs.GetFloat("Sensitivity");
-    }
-
     // Update is called once per frame
     void LateUpdate()
     {
-        float mouseX = inputManager.player_Mappings.Camera.MouseX.ReadValue<float>() * mouseSensitivity * Time.deltaTime;
+        float mouseX = inputManager.player_Mappings.Camera.MouseX.ReadValue<float>() * PlayerPrefs.GetFloat("Sensitivity") * Time.deltaTime;
 
-        float mouseY = inputManager.player_Mappings.Camera.MouseY.ReadValue<float>() * mouseSensitivity * Time.deltaTime;
+        float mouseY = inputManager.player_Mappings.Camera.MouseY.ReadValue<float>() * PlayerPrefs.GetFloat("Sensitivity") * Time.deltaTime;
         xRotation -= mouseY;
         xRotation = Math.Clamp(xRotation, -90f, 90f);
 
