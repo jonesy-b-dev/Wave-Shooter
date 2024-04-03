@@ -49,6 +49,7 @@ public class MenuManager : MonoBehaviour
 
         pauseSat = new ClampedFloatParameter(pauseSaturation, -100f, 100f);
         normalSat = new ClampedFloatParameter(normalSaturation, -100f, 100f);
+        PlayerPrefs.SetFloat("Sensitivity", 8f);
 
     }
 
