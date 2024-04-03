@@ -21,10 +21,12 @@ public class Player_functions : MonoBehaviour
     [Space(5)]
     [Header("Settings")]
     [SerializeField] private float raycastDistance = 10000f; // Distance for the raycast
+    [SerializeField] private int firerate = 100;
 
 //Private:
     private Animator animator;
     private bool canShoot = true;
+    private float fireDelay;
 
     void Start()
     {
@@ -32,6 +34,7 @@ public class Player_functions : MonoBehaviour
         // Link input to function
         inputManager.player_Mappings.PlayerInteract.Shoot.started += _ => Shoot();
         inputManager.player_Mappings.UI.Pause.started += _ => menuManager.ShowPauseScreen();
+        fireDelay = 1 / (firerate / 60f);
     }
 
     void Update()
@@ -76,15 +79,15 @@ public class Player_functions : MonoBehaviour
                 Vector3 endPosition = raycastOrigin + raycastDirection * raycastDistance;
                 Debug.DrawLine(raycastOrigin, endPosition, Color.green, 0.1f);
             }
-            canShoot = false;
             StartCoroutine(ShootTimer());
-            canShoot = true;
         }
     }
     
     private IEnumerator ShootTimer()
     {
-        yield return new WaitForSeconds(1.5f);
+        canShoot = false;
+        yield return new WaitForSeconds(fireDelay);
+        canShoot = true;
     }
     private void OnCollisionEnter(Collision collision)
     {
