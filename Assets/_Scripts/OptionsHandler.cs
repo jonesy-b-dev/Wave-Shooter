@@ -19,6 +19,11 @@ public class OptionsHandler : MonoBehaviour
         {
             instance = this;
         }
+
+        if(PlayerPrefs.GetFloat("Sensitivity") == 0f)
+        {
+            PlayerPrefs.SetFloat("Sensitivity", 8f);
+        }
     }
 
     public void SetSensitivity(Slider slider)
