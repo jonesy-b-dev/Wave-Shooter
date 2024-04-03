@@ -15,8 +15,9 @@ public class CameraLook : MonoBehaviour
 
     public void Start()
     {
-        mouseSensitivity = OptionsHandler.instance.sensitivityMultiplier;
+        mouseSensitivity = PlayerPrefs.GetFloat("Sensitivity");
     }
+
     // Update is called once per frame
     void LateUpdate()
     {

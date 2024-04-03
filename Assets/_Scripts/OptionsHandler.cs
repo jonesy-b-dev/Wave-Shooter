@@ -7,24 +7,22 @@ public class OptionsHandler : MonoBehaviour
 {
 // public:
     public static OptionsHandler instance;
-    public float sensitivityMultiplier;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         if (instance != null && instance != this)
         {
             Destroy(this);
         }
-        else instance = this;
+        else
+        {
+            instance = this;
+        }
     }
 
     public void SetSensitivity(Slider slider)
     {
-        sensitivityMultiplier = slider.value;
-    }
-    private void Update()
-    {
-        Debug.Log(sensitivityMultiplier);
+        PlayerPrefs.SetFloat("Sensitivity", slider.value);
     }
 }
