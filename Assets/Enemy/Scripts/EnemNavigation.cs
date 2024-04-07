@@ -12,9 +12,11 @@ public class EnemNavigation : MonoBehaviour
 // Private:
     private NavMeshAgent agent;
     private float distanceFromPlayer = 10;
+    private Enemy mainEnemyScript;
 
     void Start()
     {
+        mainEnemyScript = GetComponent<Enemy>();
         agent = GetComponent<NavMeshAgent>();
         GameObject player = GameObject.Find("Player");
         playerTransform = player.transform;
@@ -22,9 +24,12 @@ public class EnemNavigation : MonoBehaviour
 
     void Update()
     {
-        directionToPlayer = playerTransform.position - transform.position;
-        Vector3 destinationPosition = playerTransform.position - directionToPlayer.normalized * distanceFromPlayer;
+        if(!mainEnemyScript.isDead)
+        {
+            directionToPlayer = playerTransform.position - transform.position;
+            Vector3 destinationPosition = playerTransform.position - directionToPlayer.normalized * distanceFromPlayer;
 
-        agent.destination = destinationPosition;
+            agent.destination = destinationPosition;
+        }
     }
 }

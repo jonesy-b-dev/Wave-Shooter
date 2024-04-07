@@ -9,14 +9,19 @@ public class Enemy : MonoBehaviour, IEnemy
     [SerializeField] private SOEnemy enemyStats;
     [SerializeField] private GameObject shootPoint;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private MeshCollider collider;
 
 // Private
     private EnemNavigation enemNavigation;
     private GameObject player;
     private float health;
+    private Rigidbody[] rigidbodies;
+    public bool isDead = false;
 
     void Start()
     {
+        rigidbodies = GetComponentsInChildren<Rigidbody>();
+        IsRagdoll(false);
         health = enemyStats.health;
         player = GameManager.instance.player;
         enemNavigation = GetComponent<EnemNavigation>();
@@ -24,16 +29,20 @@ public class Enemy : MonoBehaviour, IEnemy
 
     void FixedUpdate()
     {
-        int randomNumber = UnityEngine.Random.Range(0, 1000);
-
-        if(randomNumber > 990)
+        if(!isDead)
         {
-            ((IEnemy)this).Shoot();
+            int randomNumber = UnityEngine.Random.Range(0, 1000);
+
+            if(randomNumber > 990)
+            {
+                ((IEnemy)this).Shoot();
+            }
         }
     }
 
     void IEnemy.Hit()
     {
+        Debug.Log("hit");
         health = 0;
 
         if (health == 0 ) 
@@ -47,8 +56,9 @@ public class Enemy : MonoBehaviour, IEnemy
         Debug.Log("Dead");
 
         GameManager.instance.EnemyDeath();
-        
-        Destroy(gameObject);
+        IsRagdoll(true);
+
+        //Destroy(gameObject);
     }
 
     void IEnemy.Shoot()
@@ -66,5 +76,16 @@ public class Enemy : MonoBehaviour, IEnemy
         //{
         //    Debug.DrawLine(raycastOrigin, hit.point, Color.green, 0.1f);
         //}
+    }
+
+    private void IsRagdoll(bool isRagdoll)
+    {
+        isDead = isRagdoll;
+        collider.enabled = !isRagdoll;
+
+        foreach(Rigidbody ragdollBone in rigidbodies)
+        {
+            ragdollBone.isKinematic = !isRagdoll;
+        }
     }
 }
