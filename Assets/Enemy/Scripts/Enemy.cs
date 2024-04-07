@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour, IEnemy
         health = enemyStats.health;
         player = GameManager.instance.player;
         enemNavigation = GetComponent<EnemNavigation>();
+        EnableRagdollColliders(false);
     }
 
     void FixedUpdate()
@@ -82,10 +83,21 @@ public class Enemy : MonoBehaviour, IEnemy
     {
         isDead = isRagdoll;
         collider.enabled = !isRagdoll;
+        EnableRagdollColliders(true);
 
         foreach(Rigidbody ragdollBone in rigidbodies)
         {
             ragdollBone.isKinematic = !isRagdoll;
         }
+    }
+
+    private void EnableRagdollColliders(bool on)
+    {
+        foreach (Rigidbody rigidbody in rigidbodies)
+        {
+            CapsuleCollider collider = rigidbody.GetComponent<CapsuleCollider>();
+            collider.enabled = on;
+        }
+
     }
 }
